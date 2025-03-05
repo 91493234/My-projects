@@ -1,4 +1,6 @@
 import requests
+import time
+import sys
 
 
 def financeReport():
@@ -60,7 +62,7 @@ def main():
         stock_price, market_cap = stock_market(ticker, api)
         year = "2024-2025"
 
-        print(f'''\n 
+        info=f'''\n 
 ----------------------------------------------
     
     {company_name:^7} - {year}
@@ -79,9 +81,18 @@ Stock Market Data:
 Stock Price    :    ${stock_price:,}
 Market Cap     :    {market_cap:e}
 Inflation Rate :    3.0% (Not fixed value)
-            ''')
+----------------------------------------------
+            '''
+
+        for char in info:
+            sys.stdout.write(char) # sys.stdout.write(character) ye ek ek character print karega bina new line ke
+            sys.stdout.flush() # system.stdout.flush() ye output ko turant terminal main dikhayega
+            time.sleep(0.01) # time.sleep(time in second) ye sleep ho diye gaye time ke liye
+
     except TypeError:
         print("\nERROR: Company not found or API trial expired. Use apple or goole for API trial Expire! \n")
+    except requests.exceptions.ConnectionError:
+        print("\nNo internet connection!\n")
 
     
     
